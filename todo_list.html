@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -68,6 +69,34 @@
       font-size: 14px;
     }
 
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .view-switch-btn {
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      min-height: 46px;
+      background: linear-gradient(135deg, #eef2ff, #dbeafe);
+      color: #1d4ed8;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(59, 130, 246, 0.12);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .view-switch-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(59, 130, 246, 0.16);
+    }
+
     .content {
       padding: 24px 28px 28px;
     }
@@ -83,6 +112,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .search-row {
       margin-bottom: 18px;
     }
 
@@ -108,7 +141,8 @@
       box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
     }
 
-    .priority-option input {
+    .priority-option input,
+    .edit-priority-option input {
       position: absolute;
       opacity: 0;
       pointer-events: none;
@@ -154,8 +188,58 @@
       box-shadow: 0 10px 22px rgba(34, 197, 94, 0.14);
     }
 
+    .edit-priority-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .edit-priority-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+      user-select: none;
+    }
+
+    .edit-priority-option:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .edit-priority-option.is-high.active {
+      border-color: #fca5a5;
+      background: #fff1f2;
+      color: #b91c1c;
+      box-shadow: 0 8px 18px rgba(239, 68, 68, 0.12);
+    }
+
+    .edit-priority-option.is-medium.active {
+      border-color: #fde68a;
+      background: #fffbeb;
+      color: #b45309;
+      box-shadow: 0 8px 18px rgba(245, 158, 11, 0.12);
+    }
+
+    .edit-priority-option.is-low.active {
+      border-color: #86efac;
+      background: #f0fdf4;
+      color: #15803d;
+      box-shadow: 0 8px 18px rgba(34, 197, 94, 0.12);
+    }
+
     
-    .task-input {
+    .task-input,
+    .search-input {
       width: 100%;
       padding: 14px 16px;
       border-radius: var(--radius-md);
@@ -168,7 +252,8 @@
       transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
 
-    .task-input:focus {
+    .task-input:focus,
+    .search-input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.14);
     }
@@ -350,7 +435,8 @@
       display: block;
     }
 
-    .edit-input {
+    .edit-input,
+    .edit-date-input {
       width: 100%;
       padding: 12px 14px;
       border-radius: 12px;
@@ -363,9 +449,49 @@
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .edit-input:focus {
+    .edit-input:focus,
+    .edit-date-input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.14);
+    }
+
+    .edit-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .edit-field-label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .task-deadline {
+      margin-left: auto;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .task-deadline.normal {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .task-deadline.soon {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .task-deadline.overdue {
+      background: #fee2e2;
+      color: #b91c1c;
     }
 
     .edit-actions {
@@ -513,7 +639,80 @@
       flex-wrap: wrap;
     }
 
+    .history-view {
+      display: none;
+    }
+
+    .history-view.active,
+    .main-view.active {
+      display: block;
+    }
+
+    .history-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .history-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+    }
+
+    .history-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .history-text {
+      font-size: 16px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .history-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .history-status.pending {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .history-status.completed {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .history-meta {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
     @media (max-width: 640px) {
+      .header-top {
+        align-items: stretch;
+      }
+
+      .view-switch-btn {
+        width: 100%;
+      }
       .toolbar {
         align-items: stretch;
       }
@@ -547,9 +746,14 @@
         flex-direction: column;
       }
 
-      .priority-option {
+      .priority-option,
+      .edit-priority-option {
         width: 100%;
         justify-content: flex-start;
+      }
+
+      .edit-priority-row {
+        flex-direction: column;
       }
 
       .add-btn {
@@ -578,11 +782,17 @@
 <body>
   <div class="app">
     <div class="header">
-      <h1 class="title">🧸 我的待办清单</h1>
-      <p class="subtitle">轻松记录每日任务，内容会自动保存到本地浏览器</p>
+      <div class="header-top">
+        <div>
+          <h1 id="pageTitle" class="title">🧸 我的待办清单</h1>
+          <p id="pageSubtitle" class="subtitle">轻松记录每日任务，内容会自动保存到本地浏览器</p>
+        </div>
+        <button id="historyToggleBtn" class="view-switch-btn">历史记录</button>
+      </div>
     </div>
 
     <div class="content">
+      <div id="mainView" class="main-view active">
       <div class="input-row">
         <input id="taskInput" class="task-input" type="text" placeholder="今天要做什么？" maxlength="200" />
         <button id="addBtn" class="add-btn">➕ 添加任务</button>
@@ -606,6 +816,10 @@
         </label>
       </div>
 
+      <div class="search-row">
+        <input id="searchInput" class="search-input" type="text" placeholder="搜索待办或已完成任务..." maxlength="100" />
+      </div>
+
       <div class="toolbar">
         <div class="stats">
           <div class="stat-card pending-card">
@@ -624,26 +838,49 @@
 
       <ul id="taskList" class="task-list"></ul>
       <div id="emptyState" class="empty"><span class="empty-icon">🌈</span>现在还没有待办任务。<br />写下今天的小目标，开始高效的一天吧。</div>
+      </div>
+
+      <div id="historyView" class="history-view">
+        <ul id="historyList" class="history-list"></ul>
+        <div id="historyEmptyState" class="empty"><span class="empty-icon">🗂️</span>还没有历史记录。<br />先创建一些任务，这里会保存它们的最新状态。</div>
+      </div>
     </div>
   </div>
 
   <script>
     const STORAGE_KEY = 'todo-app-tasks';
+    const HISTORY_STORAGE_KEY = 'todo-app-history';
 
     const taskInput = document.getElementById('taskInput');
     const priorityOptions = document.querySelectorAll('.priority-option');
     const addBtn = document.getElementById('addBtn');
+    const searchInput = document.getElementById('searchInput');
     const taskList = document.getElementById('taskList');
     const pendingCount = document.getElementById('pendingCount');
     const completedCount = document.getElementById('completedCount');
     const emptyState = document.getElementById('emptyState');
     const clearCompletedBtn = document.getElementById('clearCompletedBtn');
+    const historyToggleBtn = document.getElementById('historyToggleBtn');
+    const mainView = document.getElementById('mainView');
+    const historyView = document.getElementById('historyView');
+    const historyList = document.getElementById('historyList');
+    const historyEmptyState = document.getElementById('historyEmptyState');
+    const pageTitle = document.getElementById('pageTitle');
+    const pageSubtitle = document.getElementById('pageSubtitle');
 
     let tasks = loadTasks().map(task => ({
       ...task,
       createdAt: task.createdAt || Date.now(),
+      updatedAt: task.updatedAt || task.createdAt || Date.now(),
+      dueDate: task.dueDate || '',
       isEditing: false,
     }));
+    let historyRecords = loadHistory();
+    if (historyRecords.length === 0 && tasks.length > 0) {
+      historyRecords = tasks.map(task => createHistorySnapshot(task));
+      saveHistory();
+    }
+    let currentView = 'main';
 
     function loadTasks() {
       try {
@@ -657,6 +894,48 @@
 
     function saveTasks() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }
+
+    function loadHistory() {
+      try {
+        const saved = localStorage.getItem(HISTORY_STORAGE_KEY);
+        return saved ? JSON.parse(saved) : [];
+      } catch (error) {
+        console.error('读取历史记录失败：', error);
+        return [];
+      }
+    }
+
+    function saveHistory() {
+      localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(historyRecords));
+    }
+
+    function createHistorySnapshot(task, timestamp = Date.now()) {
+      return {
+        id: task.id,
+        text: task.text,
+        priority: task.priority,
+        completed: task.completed,
+        dueDate: task.dueDate || '',
+        createdAt: task.createdAt || timestamp,
+        updatedAt: timestamp,
+      };
+    }
+
+    function syncHistoryRecord(task, timestamp = Date.now()) {
+      const snapshot = createHistorySnapshot(task, timestamp);
+      const existingIndex = historyRecords.findIndex(record => record.id === task.id);
+
+      if (existingIndex >= 0) {
+        historyRecords[existingIndex] = {
+          ...historyRecords[existingIndex],
+          ...snapshot,
+        };
+      } else {
+        historyRecords.unshift(snapshot);
+      }
+
+      saveHistory();
     }
 
     function getPriorityLabel(priority) {
@@ -680,13 +959,96 @@
       return `${year}-${month}-${day} ${hours}:${minutes}`;
     }
 
+    function formatDueDate(dateString) {
+      if (!dateString) return '未设置截止日期';
+      const date = new Date(`${dateString}T00:00:00`);
+      if (Number.isNaN(date.getTime())) return '未设置截止日期';
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function getDeadlineInfo(dueDate) {
+      if (!dueDate) return null;
+      const due = new Date(`${dueDate}T00:00:00`);
+      if (Number.isNaN(due.getTime())) return null;
+
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const diffMs = due.getTime() - today.getTime();
+      const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+      if (daysLeft < 0) {
+        return {
+          text: `已超期 ${Math.abs(daysLeft)} 天`,
+          type: 'overdue'
+        };
+      }
+
+      if (daysLeft === 0) {
+        return {
+          text: '今天截止',
+          type: 'soon'
+        };
+      }
+
+      if (daysLeft <= 3) {
+        return {
+          text: `剩余 ${daysLeft} 天`,
+          type: 'soon'
+        };
+      }
+
+      return {
+        text: `剩余 ${daysLeft} 天`,
+        type: 'normal'
+      };
+    }
+
+    function getPriorityRank(priority) {
+      const rankMap = {
+        high: 0,
+        medium: 1,
+        low: 2
+      };
+      return rankMap[priority] ?? 1;
+    }
+
+    function getProcessedTasks() {
+      const keyword = searchInput.value.trim().toLowerCase();
+
+      const filteredTasks = tasks.filter(task => {
+        if (!keyword) return true;
+        return task.text.toLowerCase().includes(keyword);
+      });
+
+      return [...filteredTasks].sort((a, b) => {
+        if (a.completed !== b.completed) {
+          return a.completed ? 1 : -1;
+        }
+
+        if (!a.completed && !b.completed) {
+          const priorityDiff = getPriorityRank(a.priority) - getPriorityRank(b.priority);
+          if (priorityDiff !== 0) {
+            return priorityDiff;
+          }
+        }
+
+        return b.createdAt - a.createdAt;
+      });
+    }
+
     function createTask(text, priority) {
+      const now = Date.now();
       return {
         id: Date.now() + Math.random().toString(16).slice(2),
         text: text.trim(),
         priority,
         completed: false,
-        createdAt: Date.now(),
+        createdAt: now,
+        updatedAt: now,
+        dueDate: '',
         isEditing: false,
       };
     }
@@ -700,8 +1062,10 @@
         return;
       }
 
-      tasks.unshift(createTask(text, priority));
+      const newTask = createTask(text, priority);
+      tasks.unshift(newTask);
       saveTasks();
+      syncHistoryRecord(newTask, newTask.updatedAt);
       renderTasks();
       taskInput.value = '';
       setActivePriority('medium');
@@ -709,10 +1073,15 @@
     }
 
     function toggleTask(id) {
+      const now = Date.now();
       tasks = tasks.map(task =>
-        task.id === id ? { ...task, completed: !task.completed } : task
+        task.id === id ? { ...task, completed: !task.completed, updatedAt: now } : task
       );
+      const changedTask = tasks.find(task => task.id === id);
       saveTasks();
+      if (changedTask) {
+        syncHistoryRecord(changedTask, now);
+      }
       renderTasks();
     }
 
@@ -741,23 +1110,45 @@
       renderTasks();
     }
 
-    function saveEditTask(id, newText) {
+    function getSelectedEditPriority(id) {
+      const selectedInput = document.querySelector(`input[name="edit-priority-${id}"]:checked`);
+      return selectedInput ? selectedInput.value : 'medium';
+    }
+
+    function saveEditTask(id, newText, newDueDate) {
       const trimmedText = newText.trim();
       if (!trimmedText) {
         window.alert('任务内容不能为空。');
         return;
       }
 
+      const now = Date.now();
       tasks = tasks.map(item =>
         item.id === id
-          ? { ...item, text: trimmedText, isEditing: false }
+          ? {
+              ...item,
+              text: trimmedText,
+              dueDate: newDueDate || '',
+              priority: getSelectedEditPriority(id),
+              updatedAt: now,
+              isEditing: false
+            }
           : item
       );
+      const changedTask = tasks.find(item => item.id === id);
       saveTasks();
+      if (changedTask) {
+        syncHistoryRecord(changedTask, now);
+      }
       renderTasks();
     }
 
     function deleteTask(id) {
+      const taskToDelete = tasks.find(task => task.id === id);
+      const now = Date.now();
+      if (taskToDelete) {
+        syncHistoryRecord({ ...taskToDelete, updatedAt: now }, now);
+      }
       tasks = tasks.filter(task => task.id !== id);
       saveTasks();
       renderTasks();
@@ -772,21 +1163,92 @@
     }
 
     function clearCompletedTasks() {
+      const now = Date.now();
+      tasks.filter(task => task.completed).forEach(task => {
+        syncHistoryRecord({ ...task, updatedAt: now }, now);
+      });
       tasks = tasks.filter(task => !task.completed);
       saveTasks();
       renderTasks();
     }
 
+    function renderHistory() {
+      historyList.innerHTML = '';
+
+      const historyTasks = [...historyRecords].sort((a, b) => (b.updatedAt || b.createdAt || 0) - (a.updatedAt || a.createdAt || 0));
+
+      if (historyTasks.length === 0) {
+        historyEmptyState.style.display = 'block';
+      } else {
+        historyEmptyState.style.display = 'none';
+      }
+
+      historyTasks.forEach(task => {
+        const safePriority = ['high', 'medium', 'low'].includes(task.priority) ? task.priority : 'medium';
+        const item = document.createElement('li');
+        item.className = 'history-item';
+
+        const top = document.createElement('div');
+        top.className = 'history-top';
+
+        const priorityBadge = document.createElement('span');
+        priorityBadge.className = `priority-badge priority-${safePriority}`;
+        priorityBadge.textContent = getPriorityLabel(safePriority);
+
+        const text = document.createElement('span');
+        text.className = 'history-text';
+        text.textContent = task.text;
+
+        const status = document.createElement('span');
+        status.className = `history-status ${task.completed ? 'completed' : 'pending'}`;
+        status.textContent = task.completed ? '已完成' : '未完成';
+
+        const meta = document.createElement('div');
+        meta.className = 'history-meta';
+        meta.textContent = `最新时间：${formatTaskTime(task.updatedAt || task.createdAt)} · 创建时间：${formatTaskTime(task.createdAt)} · 截止日期：${formatDueDate(task.dueDate)}`;
+
+        top.appendChild(priorityBadge);
+        top.appendChild(text);
+        top.appendChild(status);
+        item.appendChild(top);
+        item.appendChild(meta);
+        historyList.appendChild(item);
+      });
+    }
+
+    function switchView(view) {
+      currentView = view;
+      const isHistory = view === 'history';
+      mainView.classList.toggle('active', !isHistory);
+      historyView.classList.toggle('active', isHistory);
+      historyToggleBtn.textContent = isHistory ? '返回待办' : '历史记录';
+      pageTitle.textContent = isHistory ? '🗂️ 历史记录' : '🧸 我的待办清单';
+      pageSubtitle.textContent = isHistory
+        ? '这里会显示你创建过的所有事件最新状态'
+        : '轻松记录每日任务，内容会自动保存到本地浏览器';
+
+      if (isHistory) {
+        renderHistory();
+      } else {
+        renderTasks();
+      }
+    }
+
     function renderTasks() {
       taskList.innerHTML = '';
 
-      if (tasks.length === 0) {
+      const processedTasks = getProcessedTasks();
+
+      if (processedTasks.length === 0) {
         emptyState.style.display = 'block';
+        emptyState.innerHTML = searchInput.value.trim()
+          ? '<span class="empty-icon">🔎</span>没有找到匹配的任务。<br />试试换个关键词搜索吧。'
+          : '<span class="empty-icon">🌈</span>现在还没有待办任务。<br />写下今天的小目标，开始高效的一天吧。';
       } else {
         emptyState.style.display = 'none';
       }
 
-      tasks.forEach(task => {
+      processedTasks.forEach(task => {
         const safePriority = ['high', 'medium', 'low'].includes(task.priority) ? task.priority : 'medium';
         const li = document.createElement('li');
         li.className = `task-item ${task.completed ? 'completed' : ''}`;
@@ -803,6 +1265,7 @@
 
         const taskTop = document.createElement('div');
         taskTop.className = 'task-top';
+        const deadlineInfo = getDeadlineInfo(task.dueDate);
 
         const text = document.createElement('span');
         text.className = 'task-text';
@@ -815,10 +1278,17 @@
         const meta = document.createElement('div');
         meta.className = 'task-meta';
         const statusText = task.completed ? '状态：已完成' : '状态：进行中';
-        meta.textContent = `${statusText} · 添加时间：${formatTaskTime(task.createdAt)}`;
+        meta.textContent = `${statusText} · 添加时间：${formatTaskTime(task.createdAt)} · 截止日期：${formatDueDate(task.dueDate)}`;
 
         const editInline = document.createElement('div');
         editInline.className = 'edit-inline';
+
+        const editFields = document.createElement('div');
+        editFields.className = 'edit-fields';
+
+        const textLabel = document.createElement('label');
+        textLabel.className = 'edit-field-label';
+        textLabel.textContent = '任务内容';
 
         const editInput = document.createElement('input');
         editInput.type = 'text';
@@ -829,12 +1299,74 @@
         editInput.setAttribute('aria-label', '编辑任务内容');
         editInput.addEventListener('keydown', (event) => {
           if (event.key === 'Enter') {
-            saveEditTask(task.id, editInput.value);
+            saveEditTask(task.id, editInput.value, editDateInput.value);
           }
           if (event.key === 'Escape') {
             cancelEditTask(task.id);
           }
         });
+
+        const priorityLabel = document.createElement('div');
+        priorityLabel.className = 'edit-field-label';
+        priorityLabel.textContent = '优先级';
+
+        const editPriorityRow = document.createElement('div');
+        editPriorityRow.className = 'edit-priority-row';
+
+        ['high', 'medium', 'low'].forEach(priorityValue => {
+          const option = document.createElement('label');
+          const isActive = safePriority === priorityValue;
+          option.className = `edit-priority-option is-${priorityValue} ${isActive ? 'active' : ''}`;
+          option.setAttribute('data-priority', priorityValue);
+
+          const radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.name = `edit-priority-${task.id}`;
+          radio.value = priorityValue;
+          radio.checked = isActive;
+          radio.addEventListener('change', () => {
+            editPriorityRow.querySelectorAll('.edit-priority-option').forEach(item => {
+              item.classList.toggle('active', item.getAttribute('data-priority') === priorityValue);
+            });
+          });
+
+          const dot = document.createElement('span');
+          dot.className = `priority-dot dot-${priorityValue}`;
+
+          const labelText = document.createElement('span');
+          labelText.textContent = getPriorityLabel(priorityValue);
+
+          option.appendChild(radio);
+          option.appendChild(dot);
+          option.appendChild(labelText);
+          editPriorityRow.appendChild(option);
+        });
+
+        priorityLabel.appendChild(editPriorityRow);
+
+        const dateLabel = document.createElement('label');
+        dateLabel.className = 'edit-field-label';
+        dateLabel.textContent = '截止日期';
+
+        const editDateInput = document.createElement('input');
+        editDateInput.type = 'date';
+        editDateInput.className = 'edit-date-input';
+        editDateInput.value = task.dueDate || '';
+        editDateInput.setAttribute('aria-label', '编辑截止日期');
+        editDateInput.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            saveEditTask(task.id, editInput.value, editDateInput.value);
+          }
+          if (event.key === 'Escape') {
+            cancelEditTask(task.id);
+          }
+        });
+
+        textLabel.appendChild(editInput);
+        dateLabel.appendChild(editDateInput);
+        editFields.appendChild(textLabel);
+        editFields.appendChild(priorityLabel);
+        editFields.appendChild(dateLabel);
 
         const editActions = document.createElement('div');
         editActions.className = 'edit-actions';
@@ -842,7 +1374,7 @@
         const saveBtn = document.createElement('button');
         saveBtn.className = 'save-btn';
         saveBtn.textContent = '保存';
-        saveBtn.addEventListener('click', () => saveEditTask(task.id, editInput.value));
+        saveBtn.addEventListener('click', () => saveEditTask(task.id, editInput.value, editDateInput.value));
 
         const cancelBtn = document.createElement('button');
         cancelBtn.className = 'cancel-btn';
@@ -851,11 +1383,17 @@
 
         editActions.appendChild(saveBtn);
         editActions.appendChild(cancelBtn);
-        editInline.appendChild(editInput);
+        editInline.appendChild(editFields);
         editInline.appendChild(editActions);
 
-        taskTop.appendChild(text);
         taskTop.appendChild(badge);
+        taskTop.appendChild(text);
+        if (deadlineInfo) {
+          const deadlineBadge = document.createElement('span');
+          deadlineBadge.className = `task-deadline ${deadlineInfo.type}`;
+          deadlineBadge.textContent = deadlineInfo.text;
+          taskTop.appendChild(deadlineBadge);
+        }
         taskMain.appendChild(taskTop);
         taskMain.appendChild(meta);
         taskMain.appendChild(editInline);
@@ -884,6 +1422,7 @@
       });
 
       updateStats();
+      renderHistory();
     }
 
     function setActivePriority(priority) {
@@ -905,6 +1444,10 @@
 
     addBtn.addEventListener('click', addTask);
     clearCompletedBtn.addEventListener('click', clearCompletedTasks);
+    searchInput.addEventListener('input', renderTasks);
+    historyToggleBtn.addEventListener('click', () => {
+      switchView(currentView === 'main' ? 'history' : 'main');
+    });
 
     taskInput.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
